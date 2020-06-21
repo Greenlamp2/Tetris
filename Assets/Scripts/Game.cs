@@ -26,6 +26,8 @@ public class Game : MonoBehaviour {
     public Text hud_level;
     public Text hud_lines;
 
+    public static bool gameOver = false;
+
     private int numberOfRowsThisTurn = 0;
 
     public GameObject[] tetrominos;
@@ -209,6 +211,7 @@ public class Game : MonoBehaviour {
     }
 
     public void GameOver() {
+        gameOver = true;
         SceneManager.LoadScene("GameOver");
     }
 
