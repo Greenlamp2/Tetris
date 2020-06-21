@@ -8,6 +8,9 @@ public class Game : MonoBehaviour {
     public static int gridHeight = 20;
 
     public static Transform[,] grid = new Transform[gridWidth, gridHeight];
+
+    public static int startingLevel = 0;
+    
     public int scoreOneLine = 40;
     public int scoreTwoLine = 100;
     public int scoreThreeLine = 300;
@@ -44,7 +47,7 @@ public class Game : MonoBehaviour {
     }
 
     void UpdateLevel() {
-        currentLevel = numLinesCleared / 10;
+        currentLevel = startingLevel + (numLinesCleared / 10);
     }
 
     void UpdateSpeed() {
