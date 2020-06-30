@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -19,12 +20,16 @@ public class Game : MonoBehaviour {
     public int currentLevel = 0;
     private int numLinesCleared = 0;
 
+    public bool paused = false;
+
     public float fallSpeed = 1.0f;
 
     public static int currentScore;
     public Text hud_score;
     public Text hud_level;
     public Text hud_lines;
+    public Canvas paused_ui;
+    public Canvas hud;
 
     public static bool gameOver = false;
 
@@ -39,6 +44,7 @@ public class Game : MonoBehaviour {
         currentScore = 0;
         randomTetromino = Random.Range(0, tetrominos.Length);
         SpawnNextTetromino();
+        paused_ui.enabled = false;
     }
 
     void Update() {
@@ -46,6 +52,25 @@ public class Game : MonoBehaviour {
         UpdateUI();
         UpdateLevel();
         UpdateSpeed();
+        UpdatePause();
+    }
+
+    void UpdatePause() {
+        if (Input.GetKeyUp(KeyCode.P)) {
+            if (paused) {
+                paused = false;
+                hud.enabled = true;
+                paused_ui.enabled = false;
+                GetComponent<AudioSource>().Play();
+                Time.timeScale = 1;
+            } else {
+                paused = true;
+                paused_ui.enabled = true;
+                hud.enabled = false;
+                GetComponent<AudioSource>().Pause();
+                Time.timeScale = 0;
+            }
+        }
     }
 
     void UpdateLevel() {

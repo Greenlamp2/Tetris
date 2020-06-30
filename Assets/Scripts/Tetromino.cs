@@ -30,6 +30,7 @@ public class Tetromino : MonoBehaviour {
     }
 
     void Update() {
+        if (FindObjectOfType<Game>().paused) return;
         CheckUserInput();
         UpdateIndividualScore();
     }
